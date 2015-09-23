@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script>
+  $(document).click(function(){
+    $("#access").attr("style", function getColor() {
+  		var letters = '0123456789ABCDEF'.split('');
+  		var color = 'color:#';
+  		for (var i = 0; i < 6; i++ ) {
+  				color += letters[Math.floor(Math.random() * 16)];
+  		}
+  		color += ";"
+  		return color;
+  	})
+    setTimeout("alert('Boom!')", 200);
+  });
+  </script>
+</head>
+<body>
+  <p id="access">HELLLOOSDFJSDFKL:SF</p>
+</body>
+</html>

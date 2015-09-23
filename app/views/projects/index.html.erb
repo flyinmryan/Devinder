@@ -1,0 +1,37 @@
+      <section id="main" class="wrapper">
+        <div class="container-fluid" style="background-image: url('/images/c.jpg'); color: white;">
+          <header class="major">
+            <h2 style="color:white; font-size:32px;">Available Projects</h2>
+            <p>Here's a list of all our current ongoing projects</p>
+          </header>
+        </div>
+      </section>
+
+<div class="container">
+  <table>
+    <thead>
+      <tr>
+        <th>Client</th>
+        <th>Project Title</th>
+        <th>Description</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <td><%= project.users[0].name %></td>
+          <td><%= project.title %></td>
+          <td><%= project.description %></td>
+          <td><%= link_to 'Show', project %></td>
+
+          <td><%= link_to 'Edit', edit_project_path(project) %></td>
+          <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <br>
+<p class="button big" id="centerBtn"><%= link_to 'New Project', new_project_path %></p>
+<br>
+</div>

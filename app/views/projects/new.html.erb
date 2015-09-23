@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<style>
+html {
+  margin-top: -30px;
+}
+#fixedNav {
+  background-color: rgba(0, 0, 0, 0.5);
+  font-weight: bolder;
+}
+p {
+  text-align: center;
+}
+#profile {
+  width: 650px;
+  margin: 0px auto;
+}
+#prof {
+  text-align: center;
+}
+#stripe {
+  margin: 0px auto;
+  text-align: center;
+}
+#footLinks a {
+  text-decoration: none;
+  font-weight: lighter;
+}
+#footLinks {
+  text-align: center;
+}
+#contactDev {
+  text-align: center;
+}
+#ptitle {
+  font-size: 32px;
+  font-weight: 500px;
+}
+#newProjForm label {
+  color: black;
+  font-size: 24px;
+}
+</style>
+<section id="main" class="wrapper">
+  <div class="container-fluid" style="background-image: url('/images/c.jpg'); color: white; height:60%; margin-bottom:15px;">
+
+    <header class="major">
+      <h2 id="prof" style="color:white;">Create a Project Posting</h2>
+    </header>
+  </div>
+</section>
+<div class="container">
+<div id="newProjForm">
+  <%= render 'form' %>
+</div>
+<a href="/home">Back</a>
+</div>

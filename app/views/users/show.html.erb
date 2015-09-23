@@ -1,0 +1,148 @@
+<p id="notice"><%= notice %></p>
+<script>
+// var random = "";
+// $.ajax({
+//   url: 'https://randomuser.me/api/?gender=male',
+//   dataType: 'json',
+//   success: function(data){
+//     random = data.results[0].user.picture.large;
+//     $("#randImg").attr("src", random);
+//   }
+// });
+</script>
+<!-- <div class="headerSpace"></div> -->
+<style>
+html {
+  margin-top: -30px;
+}
+#fixedNav {
+  background-color: rgba(0, 0, 0, 0.5);
+  font-weight: bolder;
+}
+p {
+  text-align: center;
+}
+#profile {
+  width: 960px;
+  margin: 0px auto;
+}
+#prof {
+  text-align: center;
+}
+#stripe {
+  margin: 0px auto;
+  text-align: center;
+}
+#footLinks a {
+  text-decoration: none;
+  font-weight: lighter;
+}
+#footLinks {
+  text-align: center;
+}
+#contactDev {
+  text-align: center;
+}
+#showProj {
+  margin-top: 160px;
+}
+</style>
+<section id="main" class="wrapper">
+  <div class="container-fluid" style="background-image: url('/images/c.jpg'); color: white; height:60%; margin-bottom:15px;">
+
+    <header class="major">
+      <h2 id="prof" style="color:white;"><%= @user.name %>'s Profile</h2>
+    </header>
+  </div>
+</section>
+<div class="container">
+<div id="profile">
+  <p style="margin:0px auto;"><span><a href="#" class="icon rounded fa-github" style="color:black"><span class="label">Github</span></a><a href="#" class="icon rounded fa-linkedin" style="color:black"><span class="label">Linkedin</span></a></span>
+  <% if @user.photo %>
+    <img src="https://randomuser.me/api/portraits/<%= @user.photo %>.jpg" class="image right" id="randImg"></p>
+  <% else %>
+    <img src="http://loremflickr.com/200/300/microprocessor" class="image right" id="randImg"></p>
+  <% end %>
+  <p>
+    <strong><%= @user.title %></strong>
+  </p>
+  <p>
+    <%= @user.email %>
+  </p>
+  <p>
+    <%= @user.description %>
+  </p>
+  <p>
+
+    <strong>Rating:</strong>
+    <% if @user.rating %>
+      <% @stars = @user.rating / @user.total_ratings %>
+      <% (1..@stars).each do %>
+        <img src="/images/star.png">
+      <% end %>
+    <% else %>
+        <p>User is not yet rated</p>
+    <% end %>
+  </p>
+  <% if @user.role == "Developer" %>
+    <div id="showProj">
+      <p style="font-size:32px;">Projects looking for developers...</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Project Title</th>
+            <th>Description</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @projects.each do |project| %>
+            <tr>
+              <td><%= project.users[0].name %></td>
+              <td><%= project.title %></td>
+              <td><%= project.description %></td>
+              <td><%= link_to 'Show Project', project %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+
+  <!-- <form action="/project_details/<%= @user.id %>/offer" method="post" class="three columns" id="contactDev">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <select name="p_id">
+      <% current_user.projects.each do |p| %>
+      <option value="<%= p.id %>"><%= p.title %></option>
+      <% end %>
+    </select>
+    <button class="button small">Contact Developer</button>
+  </form> -->
+
+  <br>
+  <br>
+  <br>
+  <br>
+</div>
+<p class="button big" id="centerBtn"><%= link_to 'New Project', new_project_path %></p>
+  <div id="footLinks">
+    <%= link_to 'Edit', edit_user_path(@user) %> |
+    <%= link_to 'Back', users_path %> |
+    <a href="/home">Home</a>
+  </div>
+</div>
+
+  <!-- <div id="stripe">
+    <form action="" method="POST">
+      <script type="text/javascript"
+        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+        data-key="pk_test_NaagdnWduin4tQPrZACSBq2o"
+        data-amount= '$100'
+        data-name="Devinder"
+        data-description=""
+        data-image="">
+      </script>
+    </form>
+  </div> -->
+  <!-- <%= link_to 'Offers', offers_user_path  %> -->

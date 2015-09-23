@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/skel.min.js"></script>
+    <script src="/javascripts/skel-layers.min.js"></script>
+    <script src="/javascripts/init.js"></script>
+
+    <link rel="stylesheet" href="/stylesheets/skel.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/style-xsmall.css" />
+    <link rel="stylesheet" href="/stylesheets/style-xlarge.css" />
+    <link rel="stylesheet" href="/stylesheets/style-medium.css" />
+    <link rel="stylesheet" href="/stylesheets/style-small.css" />
+    <link rel="stylesheet" href="/stylesheets/style-large.css" />
+
+  <title>DevFinder</title>
+
+  <style>
+
+  #fixedNav {
+    width: 100%;
+		position: fixed;
+		background-color: rgba(0, 0, 0, 0.1);
+		padding: 10px 0;
+    margin: 0px auto;
+    z-index: 3;
+	}
+	#fixedNav h2 {
+    color: white;
+		text-align: left;
+    display: inline-block;
+    margin-bottom: 0px;
+	}
+  #headerLeft {
+    color: white;
+    text-align: left;
+    display: inline-block;
+    margin-left: 20px;
+    letter-spacing: .5em;
+    text-shadow: 3px 3px black;
+    font-weight: 600;
+  }
+  #headerRight {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    font-family: consolas;
+    color: #51ff15;
+  }
+  #headerRight a {
+    margin-right: 20px;
+    text-decoration: none;
+    color: #51ff15;
+  }
+  #headerRight a:hover {
+    color: orange;
+  }
+  .container {
+    width: 900px;
+    margin: 0px auto;
+  }
+  #logInLink {
+    margin-right: 20px;
+    cursor: pointer;
+  }
+  #logInLink:hover {
+    color: orange;
+  }
+  .headerSpace {
+    height: 80px;
+  }
+  #login {
+    display: none;
+		color: white;
+		margin: 10% auto;
+    left: 0;
+    right: 0;
+		width: 460px;
+		text-align: center;
+		background-color: rgba(0, 0, 0, 0.8);
+		padding: 10px;
+    position: fixed;
+		z-index: 3;
+    border-radius: 10px;
+	}
+  #regLink {
+		font-size: 14px;
+		color: #51ff15;
+	}
+	#regLink:hover {
+    cursor: pointer;
+		color: orange;
+	}
+	#log {
+		width: 150px;
+	}
+	#reg {
+		display: none;
+	}
+	#login.p, h1, h2, label {
+		margin: 0px auto;
+		color: white;
+	}
+	#login input.inputs, #role.inputs {
+		width: 300px;
+		margin: 0px auto;
+    height: 20px;
+    font-size: 12px;
+    text-align: center;
+	}
+  #login textarea {
+    width: 300px;
+		margin: 0px auto;
+	}
+  #login input.inputs, #login textarea.inputs, #role.inputs {
+    font-size: 12px;
+    text-align: center;
+  }
+  #role.inputs option {
+    text-align: center;
+    background-color: #313131;
+  }
+	#login .btn {
+		width: 100px;
+	}
+  #login a:hover {
+    color: orange;
+  }
+  #login input.btn {
+    margin-top: 10px;
+  }
+  #login form {
+    margin: 0px;
+  }
+	#reg p {
+		margin-bottom: 2px;
+	}
+  #login select {
+    padding-left: 65px;
+  }
+  #login p {
+    margin-bottom: 0px;
+  }
+  #errs {
+    color: red;
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
+  }
+  .warn {
+    border: 1px solid red;
+  }
+  #close {
+    font-size: 14px;
+		color: red;
+    font-weight: 500;
+  }
+  #close:hover {
+    cursor: pointer;
+    color: orange;
+  }
+  #regLink2 {
+    color: orange:
+  }
+  #centerBtn {
+    margin-left: 300px;
+  }
+  </style>
+  <script type="text/javascript">
+  $(document).ready(function(){
+  	$(document).on("click", "#regLink", function(){
+      $("#regLink").toggle();
+  		$("#logForm").slideToggle();
+  		$("#reg").slideToggle();
+  	})
+    $(document).on("click", "#logInLink", function(){
+      $("#login").slideToggle(1000);
+    })
+  })
+  </script>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div id="fixedNav">
+    <div id="headerLeft">
+      <!-- <h2>Devinder</h2> -->
+      <img src="/images/devfinder_final_shadow.png" class="img-thumbnail" height="35">
+    </div>
+    <div id="headerRight">
+      <% if current_user %>
+        <a href="/users/logout">Logout</a>
+      <% else %>
+        <span id="logInLink">Login</span>
+      <% end %>
+      <a href="/">Home</a><a href="/users">Developers</a><a href="/projects">Clients</a>
+    </div>
+
+  </div>
+  <div id="login">
+  		<h2 id="title">Login</h2>
+      <div id="errs">
+        <% if flash[:errors] %>
+          <% flash[:errors].each do |e| %>
+            <p><%= e %></p>
+          <% end %>
+          <script>
+            $("#login").fadeIn(800).addClass("warn");
+          </script>
+        <% end %>
+      <script>
+        $(document).on("click", "#close", function(){
+          $("#login").fadeOut(800);
+        })
+      </script>
+      </div>
+  		<p id="regLink">Click here to register</p>
+      <p id='close'>Close this window</p>
+  		<form action='/users/login' method='post' id="logForm">
+  			<input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+
+  			<p><label for='email'>Email</label>
+  			<input id="email" name="email" type="text" class="inputs"></p>
+
+  			<p><label for='password'>Password</label>
+  			<input type="password" id="password" name="password" type="text" class="inputs"></p>
+  			<p id="logBtn"><input type="submit" value="Log In" class="btn"></p>
+  		</form>
+  				<div id="reg">
+  					<form action='/users' method='post'>
+  						<input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+
+  						<p><label for='email'>Email</label>
+  						<input id="email" name="user[email]" type="email" class="inputs"></p>
+
+  						<p><label for='name'>Full Name</label>
+  						<input id="name" name="user[name]" type="text" class="inputs"></p>
+
+  						<p><label for='password'>Password</label>
+  						<input id="password" name="user[password]" type="password" class="inputs"></p>
+
+  						<p><label for='password'>Confirm Password</label>
+  						<input id="password" name="user[password_confirmation]" type="password" class="inputs"></p>
+
+  					<p><label for="role">Role</label>
+  						<select id="role" name="user[role]" class="inputs">
+                <option value="" disabled selected>Are you a Developer or Client?</option>
+                <option value="Client">Client</option>
+                <option value="Developer">Developer</option>
+              </select>
+            </p>
+
+  						<p><label for='title'>Title</label>
+  						<input id="title" name="user[title]" type="text" class="inputs"></p>
+
+  						<p><label for='description'>Description</label>
+  						<textarea id="description" name="user[description]" type="text" class="inputs"></textarea></p>
+
+  						<p><input type="submit" value="Register" class="btn"></p>
+  					</form>
+  				</div>
+  </div>
+
+<%= yield %>
+
+<footer id="footer">
+                <div class="container">
+                    <div class="row">
+                        <section class="4u 6u(medium) 12u$(small)">
+                            <h3>Company Info</h3>
+                            <p>Find all the information you wanted to know about Devinder, here!</p>
+                            <ul class="alt">
+                                <li><a href="/homes/about">About Devinder</a></li>
+                                <li><a href="/homes/team">Our Team</a></li>
+                                <li><a href="/homes/careers">Careers</a></li>
+                            </ul>
+                        </section>
+                        <section class="4u 6u$(medium) 12u$(small)">
+                            <h3>Resources</h3>
+                            <p>Let us help you with some more additional resources!</p>
+                            <ul class="alt">
+                                <li><a href="/homes/faq">Help & FAQ</a></li>
+                                <li><a href="/homes/privacy">Privacy</a></li>
+                                <li><a href="/homes/terms">Terms of service</a></li>
+                            </ul>
+                        </section>
+                        <section class="4u$ 12u$(medium) 12u$(small)">
+                            <h3>Contact Us</h3>
+                            <ul class="icons">
+                                <li><a href="http://twitter.com" class="icon rounded fa-twitter"><span class="label">Twitter</span></a></li>
+                                <li><a href="http://facebook.com" class="icon rounded fa-facebook"><span class="label">Facebook</span></a></li>
+                                <li><a href="http://pintrest.com" class="icon rounded fa-pinterest"><span class="label">Pinterest</span></a></li>
+                                <li><a href="http://plus.google.com" class="icon rounded fa-google-plus"><span class="label">Google+</span></a></li>
+                                <li><a href="http://linkedin.com" class="icon rounded fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                            </ul>
+                            <ul class="tabular">
+                                <li>
+                                    <h3>Address</h3>
+                                    1234 Somewhere Road<br>
+                                    San Jose, CA 00000
+                                </li>
+                                <li>
+                                    <h3>Mail</h3>
+                                    <a href="#">someone@untitled.tld</a>
+                                </li>
+                                <li>
+                                    <h3>Phone</h3>
+                                    (000) 000-0000
+                                </li>
+                            </ul>
+                        </section>
+                    </div>
+                    <ul class="copyright">
+                        <li>&copy; Untitled. All rights reserved.</li>
+                        <li>Design: <a href="http://templated.co">TEMPLATED</a></li>
+                        <li>Images: <a href="http://unsplash.com">Unsplash</a></li>
+                    </ul>
+                </div>
+            </footer>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<p id="notice"><%= notice %></p>
+
+<style>
+html {
+  margin-top: -30px;
+}
+#fixedNav {
+  background-color: rgba(0, 0, 0, 0.5);
+  font-weight: bolder;
+}
+p {
+  text-align: center;
+}
+#profile {
+  width: 650px;
+  margin: 0px auto;
+}
+#prof {
+  text-align: center;
+}
+#stripe {
+  margin: 0px auto;
+  text-align: center;
+}
+#footLinks a {
+  text-decoration: none;
+  font-weight: lighter;
+}
+#footLinks {
+  text-align: center;
+}
+#contactDev {
+  text-align: center;
+}
+#ptitle {
+  font-size: 32px;
+  font-weight: 500px;
+}
+</style>
+<section id="main" class="wrapper">
+  <div class="container-fluid" style="background-image: url('/images/c.jpg'); color: white; height:60%; margin-bottom:15px;">
+
+    <header class="major">
+      <h2 id="prof" style="color:white;"><%= @project.users[0].name %>'s Project</h2>
+    </header>
+  </div>
+</section>
+<div class="container">
+  <% if @project.users[0].photo %>
+    <img src="https://randomuser.me/api/portraits/<%= @project.users[0].photo %>.jpg" class="image right" style="height:200px;width:200px;"></p>
+  <% else %>
+    <img src="http://loremflickr.com/200/300/microprocessor" class="image right" id="randImg"></p>
+  <% end %>
+<p id="ptitle">
+  <%= @project.title %>
+</p>
+
+<p>
+  <strong>Project Details</strong>
+  <p><%= @project.description %></p>
+</p>
+
+<p>
+  <strong>Client:</strong>
+  <%= @project.users[0].name %>
+</p>
+<% if @project.users.include?(current_user) %>
+  <% current_pd = @project.project_details.select { |pd| pd.user == current_user }[0] %>
+  <% if current_pd.project_status || current_pd.offer_status || ( current_pd.project_status.nil? && current_pd.offer_status.nil? ) %>
+<p>
+  <strong>Contributors:</strong>
+  <ul>
+  <% @project.project_details.select { |pd| pd.project_status || pd.offer_status }.each do |pd| %>
+    <li><%= pd.user.name %> | <script type="text/javascript"
+                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="pk_test_NaagdnWduin4tQPrZACSBq2o"
+                                data-amount= '$100'
+                                data-name="Devinder"
+                                data-description=""
+                                data-image="/images/devfinder_final_shadow.png">
+                              </script>
+    </li>
+  <% end %>
+  </ul>
+</p>
+<% end %>
+<% if @project.users[0] == current_user %>
+<p>
+  <strong>Interested Contributors:</strong>
+  <ul>
+  <% @project.project_details.reject { |pd| pd.project_status || pd.offer_status || pd.project_status.nil? }.each do |pd| %>
+    <li>
+      <%= pd.user.name %> |
+      <a href="/project_details/<%= pd.id %>/contribute" data-method="patch">Accept</a> |
+      <a href="/project_details/<%= pd.id %>/contribute" data-method="delete">Reject</a>
+    </li>
+  <% end %>
+  </ul>
+</p>
+<% end %>
+<% end %>
+
+
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %> |
+<a href="/home">Home</a> |
+<a href="/project_details/<%= @project.id %>/contribute" data-method="post">Contribute</a>
+</div>

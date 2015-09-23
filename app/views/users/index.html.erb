@@ -1,0 +1,56 @@
+<section id="main" class="wrapper">
+  <div class="container-fluid" style="background-image: url('/images/c.jpg'); color: white;">
+    <header class="major">
+      <h2 style="color:white;">Available Developers</h2>
+      <p>Here's a list of all our extraordinary programmers.</p>
+    </header>
+  </div>
+</section>
+<div class="container">
+
+<table>
+  <thead style="font-size:24px;">
+    <tr>
+      <th>Name</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th style="width:100px;">Rating</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.title %></td>
+        <td><%= user.description %></td>
+        <td style="width:100px;">
+          <% if user.rating %>
+            <% (1..user.rating/user.total_ratings).each do %>
+                  <img src="/images/star.png" style="height:10px; width:10px;">
+          <% end %>
+          <% else %>
+            <p>Not yet rated</p>
+          <% end %></td>
+        <script>
+          $("#showLink").click(function(){
+            <% if session[:user_id] %>
+                alert("This is broken.  Should link to user profile. -MR");
+              <% else %>
+                $("#regLink").html("Please login to continue or<br><p style='color:orange;'>Click here to Register</p>");
+                $("#login").fadeIn(1000);
+            <% end %>
+          })
+        </script>
+        <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<%= link_to 'New User', new_user_path %>
+<br>
+</div>
